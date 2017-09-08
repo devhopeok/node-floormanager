@@ -55,6 +55,27 @@ router.route('/signup')
         });
     });
 
+router.route('/login')
+    .post(function(req, res){
+        if( (req.body.email == '' || req.body.email == null) || (req.body.password == '' || req.body.password == null)) {
+            res.status(405).send('Missing Parameter');
+            return;
+        }
+        User.find({email: req.body.email}, function(err, users) {
+          if (err){
+              res.status(402).send(err);
+              return;
+          }
+          if (users.length == 0 || users[0].password != req.body.password){
+              res.status(404).send('Invalid Credential')
+              return;
+          }
+
+          var token = jwt.sign({ email: req.body.email }, 'shhhhh');
+          res.json({ message: 'user logged in!', email: req.body.email, token: token });
+        });
+    });
+
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
