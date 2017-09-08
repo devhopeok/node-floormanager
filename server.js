@@ -46,12 +46,12 @@ router.route('/signup')
         // save the bear and check for errors
         console.log(user);
         user.save(function(err) {
-            console.log('--1-');
             if (err) {
-              console.log("error");
               res.send(err);
             }
-            res.json({ message: 'user created!' });
+
+            var token = jwt.sign({ email: req.body.email }, 'shhhhh');
+            res.json({ message: 'user created!', email: req.body.email, token: token });
         });
     });
 
