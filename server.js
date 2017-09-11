@@ -1,8 +1,7 @@
 // BASE SETUP
 // =============================================================================
-var jwt    = require('jsonwebtoken');
-var mongoose   = require('mongoose');
-mongoose.connect('mongodb://abc:abc@ds127564.mlab.com:27564/floormanager');
+
+
 
 var User = require('./app/models/user');
 
@@ -10,6 +9,19 @@ var User = require('./app/models/user');
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
+var jwt    = require('jsonwebtoken');
+var mongoose   = require('mongoose');
+var config = require('./config');
+
+mongoose.connect(config.database);
+
+var db = mongoose.connection;
+db.on('error', function(err){
+	//console.log('DB connection failed with error:', err);
+});
+db.once('open', function(){
+	//console.log('DB connected');
+})
 
 // configure app to use bodyParser()
 // this will let us get the data from a POST
@@ -20,6 +32,7 @@ var port = process.env.PORT || 8080;        // set our port
 
 // ROUTES FOR OUR API
 // =============================================================================
+require('./route')(app);
 var router = express.Router();              // get an instance of the express Router
 
 // middleware to use for all requests
@@ -42,17 +55,26 @@ router.route('/signup')
     .post(function(req, res) {
 
         var user = new User(req.body);      // create a new instance of the Bear model
+        checkUserDuplication(req, function(result){
+          if (result.status == 'error'){
+            res.status(402).send("DB error");
+            return;
+          }
+          else if(result.status == 'ok'){
+            user.save(function(err) {
+                if (err) {
+                  res.send(err);
+                }
 
-        // save the bear and check for errors
-        console.log(user);
-        user.save(function(err) {
-            if (err) {
-              res.send(err);
-            }
-
-            var token = jwt.sign({ email: req.body.email }, 'shhhhh');
-            res.json({ message: 'user created!', email: req.body.email, token: token });
+                var token = jwt.sign({ email: req.body.email }, config.secret);
+                res.json({ message: 'user created!', email: req.body.email, token: token });
+            });
+          }
+          else{
+            res.status(403).send('User already exists');
+          }
         });
+        // save the bear and check for errors
     });
 
 router.route('/login')
@@ -71,16 +93,31 @@ router.route('/login')
               return;
           }
 
-          var token = jwt.sign({ email: req.body.email }, 'shhhhh');
+          var token = jwt.sign({ email: req.body.email }, config.secret);
           res.json({ message: 'user logged in!', email: req.body.email, token: token });
         });
     });
+
 
 // REGISTER OUR ROUTES -------------------------------
 // all of our routes will be prefixed with /api
 app.use('/api', router);
 
+function checkUserDuplication(req, callback){
+    User.findOne({email: req.body.email}, function(err, user) {
+        if (err){
+            callback({status: 'error'})
+            return;
+        }
+        if (user){
+            callback(user);
+            return;
+        }
+        callback({status: 'ok'})
+    });
+}
 // START THE SERVER
 // =============================================================================
 app.listen(port);
 console.log('Magic happens on port ' + port);
+exports = module.exports = app;
