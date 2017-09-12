@@ -53,6 +53,26 @@ exports.getClients = function(req, res) {
     });
 }
 
+exports.deleteClient = function(req, res) {
+    Client.find({_id: req.params._id}, function(err, clients) {
+        if (err){
+            res.status(402).send(err);
+            return;
+        }
+        if (clients.length == 0){
+            res.status(404).send('Invalid id')
+            return;
+        }
+        clients[0].remove(function(err) {
+            if (err){
+                res.status(402).send(err);
+                return;
+            }
+            res.json('Success');
+        });
+    });
+}
+
 function checkClientDuplication(req, callback){
     Client.findOne({email: req.user.email, client_email: req.body.client_email}, function(err, user) {
         if (err){
