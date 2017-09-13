@@ -16,4 +16,5 @@ module.exports = function(app) {
 
 	app.use('/api/client', require('./app/client'));
 	app.use('/api/distributor', require('./app/distributor'));
+	app.use('/api/product', require('./app/product'));
 };
