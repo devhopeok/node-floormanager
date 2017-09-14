@@ -16,7 +16,8 @@ var productSchema = new Schema({
   area: String,
   min_shipping_cost: String,
   flat_fee: String,
-  price: String
+  price: String,
+  image: String
 });
 
 module.exports = mongoose.model('Product', productSchema);

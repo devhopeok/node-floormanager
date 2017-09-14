@@ -24,7 +24,8 @@ exports.newProduct = function(req, res) {
           area: req.body.area,
           min_shipping_cost: req.body.min_shipping_cost,
           flat_fee: req.body.flat_fee,
-          price: req.body.price
+          price: req.body.price,
+          image: req.body.image
         });
 
         checkProductDuplication(req, function(result){
