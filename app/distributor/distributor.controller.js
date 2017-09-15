@@ -57,6 +57,26 @@ exports.getDistributors = function(req, res) {
     });
 }
 
+exports.deleteDistributor = function(req, res) {
+    Distributor.find({_id: req.params._id}, function(err, distributors) {
+        if (err){
+            res.status(402).send(err);
+            return;
+        }
+        if (distributors.length == 0){
+            res.status(404).send('Invalid id')
+            return;
+        }
+        distributors[0].remove(function(err) {
+            if (err){
+                res.status(402).send(err);
+                return;
+            }
+            res.json('Success');
+        });
+    });
+}
+
 function checkDistributorDuplication(req, callback){
     Distributor.findOne({email: req.user.email, distributor_email: req.body.distributor_email}, function(err, user) {
         if (err){
