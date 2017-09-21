@@ -19,4 +19,5 @@ module.exports = function(app) {
 	app.use('/api/product', require('./app/product'));
 	app.use('/api/store', require('./app/store'));
 	app.use('/api/order', require('./app/order'));
+	app.use('/api/orderitem', require('./app/orderitem'));
 };
