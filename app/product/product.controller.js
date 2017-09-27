@@ -13,6 +13,7 @@ exports.newProduct = function(req, res) {
           creator_email: req.user.email, // Creator email of product
           name: req.body.name,
           distributor_email: req.body.distributor_email,
+          distributor_name: req.body.distributor_name,
           material: req.body.material,
           project: req.body.project,
           available: req.body.available,

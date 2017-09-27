@@ -23,12 +23,13 @@ exports.newOrderitem = function(req, res) {
               amount: orderItem.amount,
               price: orderItem.price
             });
-
+            console.log("bbb");
             newOrderitem.save(function(err, data) {
                 if (err) {
                     res.status(402).send(err);
                     return;
                 } else {
+                    console.log("aaa");
                     res.json('Success');
                 }
             });

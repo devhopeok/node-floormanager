@@ -5,6 +5,7 @@ var productSchema = new Schema({
   creator_email: String, // Creator email of product
   name: String,
   distributor_email: String,
+  distributor_name: String,
   material: Number,
   project: Number,
   available: Boolean,

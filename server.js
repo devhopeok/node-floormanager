@@ -94,7 +94,7 @@ router.route('/login')
           }
 
           var token = jwt.sign({ email: req.body.email }, config.secret);
-          res.json({ message: 'user logged in!', email: req.body.email, token: token });
+          res.json({ message: 'user logged in!', email: req.body.email, token: token, type:users[0].type, store_id: users[0].store_id, username:users[0].username });
         });
     });
 
