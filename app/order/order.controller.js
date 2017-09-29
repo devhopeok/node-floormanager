@@ -1,26 +1,26 @@
 
 var Order = require('./order.model.js');
+var Orderitem = require('../orderitem/orderitem.model.js');
 var jwt    = require('jsonwebtoken');
 var config = require('../../config');
 
 exports.newOrder = function(req, res) {
 
-  if( (req.body.customer_id == '' || req.body.customer_id == null) || (req.user.email == '' || req.user.email == null)
-   || (req.body.product_id == '' || req.body.product_id == null)) {
+  if( (req.body.client_id == '' || req.body.client_id == null) || (req.user.email == '' || req.user.email == null)) {
         res.status(405).send('Missing Parameter');
     } else {
         var newOrder = new Order(
         {
           email: req.user.email,
-          customer_id: req.body.customer_id,
-          product_id: req.body.product_id,
+          client_id: req.body.client_id,
           date: req.body.date,
           due_date: req.body.due_date,
           discount: req.body.discount,
           sales_tax: req.body.sales_tax,
           shipping_fee: req.body.shipping_fee,
           message: req.body.message,
-          memo: req.body.memo
+          memo: req.body.memo,
+          total_price: req.body.total_price
         });
 
         newOrder.save(function(err, data) {
@@ -28,6 +28,29 @@ exports.newOrder = function(req, res) {
                 res.status(402).send(err);
                 return;
             } else {
+                for (var i=0; i<req.body.products.length; i++){
+                    var orderItem = req.body.products[i];
+                    if ((orderItem.product_id == '' || orderItem.product_id == null)){
+                        res.status(405).send('Missing Parameter');
+                    }
+                    else{
+                      var newOrderitem = new Orderitem(
+                      {
+                        order_id: data._id,
+                        product_id: orderItem.product_id,
+                        count: orderItem.count,
+                        cost: orderItem.cost,
+                        total: orderItem.total
+                      });
+                      newOrderitem.save(function(err1, data1) {
+                          if (err1) {
+                              res.status(402).send(err1);
+                              return;
+                          } else {
+                          }
+                      });
+                    }
+                }
                 res.json('Success');
             }
         });
@@ -39,7 +62,20 @@ exports.getOrders = function(req, res) {
         if (err) return;
         var resultList = [];
         for(var i = 0; i < orders.length; i++) {
-            resultList.push(orders[i]);
+              resultList.push(orders[i]);
+        }
+        res.json(resultList);
+    });
+}
+
+exports.getOrderById = function(req, res){
+
+    Orderitem.find({order_id: req.params._id}, function(err, products) {
+      console.log(products);
+        if (err) return;
+        var resultList = [];
+        for(var i = 0; i < products.length; i++) {
+              resultList.push(products[i]);
         }
         res.json(resultList);
     });
@@ -55,6 +91,16 @@ exports.deleteOrder = function(req, res) {
             res.status(404).send('Invalid id')
             return;
         }
+
+        Orderitem.find({order_id: req.params._id}, function(err1, products) {
+            if (products.length == 0){
+                return;
+            }
+            for (var i=0; i<products.length; i++){ 
+              products[i].remove(); 
+            }
+        });
+
         orders[0].remove(function(err) {
             if (err){
                 res.status(402).send(err);
