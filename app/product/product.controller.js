@@ -62,6 +62,13 @@ exports.getProducts = function(req, res) {
     });
 }
 
+exports.getProductById = function(req, res) {
+    Product.findOne({_id: req.params._id}, function(err, product) {
+        if (err) return;
+        res.json(product);
+    });
+}
+
 exports.deleteProduct = function(req, res) {
     Product.find({_id: req.params._id}, function(err, products) {
         if (err){

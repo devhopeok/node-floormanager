@@ -35,6 +35,7 @@ function checkAuth(req, res, next) {
 router.get('/', checkAuth, controller.getProducts);
 router.post('/', checkAuth, controller.newProduct);
 router.delete('/:_id', checkAuth, controller.deleteProduct);
+router.get('/:_id', checkAuth, controller.getProductById);
 // router.patch('/:login', checkAuth, controller.updateAdmin);
 // router.delete('/:login', checkAuth, controller.deleteAdmin);
 // router.post('/:login/change-password', checkAuth, controller.changePassword);

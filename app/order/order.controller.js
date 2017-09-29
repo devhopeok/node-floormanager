@@ -38,6 +38,8 @@ exports.newOrder = function(req, res) {
                       {
                         order_id: data._id,
                         product_id: orderItem.product_id,
+                        product_name: orderItem.product_name,
+                        product_image: orderItem.product_image,
                         count: orderItem.count,
                         cost: orderItem.cost,
                         total: orderItem.total
