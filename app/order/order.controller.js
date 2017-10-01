@@ -20,7 +20,8 @@ exports.newOrder = function(req, res) {
           shipping_fee: req.body.shipping_fee,
           message: req.body.message,
           memo: req.body.memo,
-          total_price: req.body.total_price
+          total_price: req.body.total_price,
+          step: 0
         });
 
         newOrder.save(function(err, data) {
@@ -80,6 +81,34 @@ exports.getOrderById = function(req, res){
               resultList.push(products[i]);
         }
         res.json(resultList);
+    });
+}
+
+exports.updateOrder = function(req, res) {
+    Order.find({_id: req.params._id}, function(err, orders) {
+        if (err){
+            res.status(402).send(err);
+            return;
+        }
+        if (orders.length == 0){
+            res.status(404).send('Invalid id')
+            return;
+        }
+        orders[0].update({$set: {
+            step: req.body.step,
+            attach_image: req.body.attach_image,
+            company_name: req.body.install_company.name,
+            company_tech_name: req.body.install_company.tech_name,
+            company_tech_phone: req.body.install_company.tech_phone,
+            company_date: req.body.install_company.date,
+            company_time: req.body.install_company.time
+        }}, function(err) {
+            if (err){
+                res.status(402).send(err);
+                return;
+            }
+            res.json('Success');
+        });
     });
 }
 

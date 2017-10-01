@@ -11,7 +11,14 @@ var orderSchema = new Schema({
   shipping_fee: String,
   message: String,
   memo: String,
-  total_price: String
+  total_price: String,
+  step: Number,
+  attach_image: String,
+  company_name: String,
+  company_tech_name: String,
+  company_tech_phone: String,
+  company_date: String,
+  company_time: String
 });
 
 module.exports = mongoose.model('Order', orderSchema);

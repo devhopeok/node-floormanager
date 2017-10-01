@@ -36,8 +36,6 @@ router.get('/', checkAuth, controller.getOrders);
 router.post('/', checkAuth, controller.newOrder);
 router.delete('/:_id', checkAuth, controller.deleteOrder);
 router.get('/:_id', checkAuth, controller.getOrderById);
-// router.delete('/:login', checkAuth, controller.deleteAdmin);
-// router.post('/:login/change-password', checkAuth, controller.changePassword);
-// router.post('/login', controller.login);
+router.patch('/:_id', checkAuth, controller.updateOrder);
 
 module.exports = router;
