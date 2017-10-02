@@ -96,22 +96,23 @@ exports.updateOrder = function(req, res) {
         }
 
         console.log(req.body.step);
-        var obj;
-        if (req.body.step != undefined){
-          obj = {
+        
+        if (req.body.step == undefined){
+          req.body.step = orders[0].step;
+        }
+
+        if (req.body.attach_image == undefined){
+          req.body.attach_image = orders[0].attach_image;
+        }
+
+        if (req.body.install_company == undefined){
+          req.body.install_company = orders[0].install_company;
+        }
+        orders[0].update({$set: {
             attach_image: req.body.attach_image,
             install_company: req.body.install_company,
             step: req.body.step
-          };
-        }
-        else{
-          obj = {
-            attach_image: req.body.attach_image,
-            install_company: req.body.install_company
-          }
-        }
-
-        orders[0].update({$set: obj}, function(err) {
+          }}, function(err) {
             if (err){
                 res.status(402).send(err);
                 return;
