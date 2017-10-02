@@ -94,11 +94,24 @@ exports.updateOrder = function(req, res) {
             res.status(404).send('Invalid id')
             return;
         }
-        orders[0].update({$set: {
-            step: req.body.step,
+
+        console.log(req.body.step);
+        var obj;
+        if (req.body.step != undefined){
+          obj = {
+            attach_image: req.body.attach_image,
+            install_company: req.body.install_company,
+            step: req.body.step
+          };
+        }
+        else{
+          obj = {
             attach_image: req.body.attach_image,
             install_company: req.body.install_company
-        }}, function(err) {
+          }
+        }
+
+        orders[0].update({$set: obj}, function(err) {
             if (err){
                 res.status(402).send(err);
                 return;
