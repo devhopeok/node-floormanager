@@ -97,11 +97,7 @@ exports.updateOrder = function(req, res) {
         orders[0].update({$set: {
             step: req.body.step,
             attach_image: req.body.attach_image,
-            company_name: req.body.install_company.name,
-            company_tech_name: req.body.install_company.tech_name,
-            company_tech_phone: req.body.install_company.tech_phone,
-            company_date: req.body.install_company.date,
-            company_time: req.body.install_company.time
+            install_company: req.body.install_company
         }}, function(err) {
             if (err){
                 res.status(402).send(err);
