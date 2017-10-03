@@ -6,7 +6,6 @@ var clientSchema = new Schema({
   name: String,
   phone: String,
   client_email: String,
-  password: String,
   address: String,
   projects: String
 });

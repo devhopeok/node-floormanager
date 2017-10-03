@@ -6,7 +6,7 @@ var config = require('../../config');
 exports.newClient = function(req, res) {
 
     if( (req.body.name == '' || req.body.name == null) || (req.user.email == '' || req.user.email == null)
-     || (req.body.password == '' || req.body.password == null) || (req.body.client_email == '' || req.body.client_email == null) ) {
+      || (req.body.client_email == '' || req.body.client_email == null) ) {
         res.status(405).send('Missing Parameter');
     } else {
         var newClient = new Client(
@@ -15,7 +15,6 @@ exports.newClient = function(req, res) {
           name: req.body.name,
           phone: req.body.phone,
           client_email: req.body.client_email,
-          password: req.body.password,
           address: req.body.address,
           projects: req.body.projects
         });
