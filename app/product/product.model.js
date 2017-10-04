@@ -9,7 +9,7 @@ var productSchema = new Schema({
   material: Number,
   project: Number,
   available: Boolean,
-  cost_per_unit: String,
+  cost: String,
   unit: Number,
   mark_up_percent: Number,
   length: String,

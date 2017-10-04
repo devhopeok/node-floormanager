@@ -17,7 +17,7 @@ exports.newProduct = function(req, res) {
           material: req.body.material,
           project: req.body.project,
           available: req.body.available,
-          cost_per_unit: req.body.cost,
+          cost: req.body.cost,
           unit: req.body.unit,
           mark_up_percent: req.body.mark_up_percent,
           length: req.body.length,
@@ -104,8 +104,8 @@ exports.updateProduct = function(req, res) {
           req.body.available = products[0].available;
         }
 
-        if (req.body.cost_per_unit == undefined){
-          req.body.cost_per_unit = products[0].cost_per_unit;
+        if (req.body.cost == undefined){
+          req.body.cost = products[0].cost;
         }
 
         if (req.body.unit == undefined){
@@ -151,7 +151,7 @@ exports.updateProduct = function(req, res) {
             material: req.body.material,
             project: req.body.project,
             available: req.body.available,
-            cost_per_unit: req.body.cost,
+            cost: req.body.cost,
             unit: req.body.unit,
             mark_up_percent: req.body.mark_up_percent,
             length: req.body.length,
