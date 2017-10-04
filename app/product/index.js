@@ -36,7 +36,7 @@ router.get('/', checkAuth, controller.getProducts);
 router.post('/', checkAuth, controller.newProduct);
 router.delete('/:_id', checkAuth, controller.deleteProduct);
 router.get('/:_id', checkAuth, controller.getProductById);
-// router.patch('/:login', checkAuth, controller.updateAdmin);
+router.patch('/:_id', checkAuth, controller.updateProduct);
 // router.delete('/:login', checkAuth, controller.deleteAdmin);
 // router.post('/:login/change-password', checkAuth, controller.changePassword);
 // router.post('/login', controller.login);

@@ -69,6 +69,108 @@ exports.getProductById = function(req, res) {
     });
 }
 
+exports.updateProduct = function(req, res) {
+    Product.find({_id: req.params._id}, function(err, products) {
+        if (err){
+            res.status(402).send(err);
+            return;
+        }
+        if (products.length == 0){
+            res.status(404).send('Invalid id')
+            return;
+        }
+
+        if (req.body.name == undefined){
+          req.body.name = products[0].name;
+        }
+
+        if (req.body.distributor_email == undefined){
+          req.body.distributor_email = products[0].distributor_email;
+        }
+
+        if (req.body.distributor_name == undefined){
+          req.body.distributor_name = products[0].distributor_name;
+        }
+
+        if (req.body.material == undefined){
+          req.body.material = products[0].material;
+        }
+
+        if (req.body.project == undefined){
+          req.body.project = products[0].project;
+        }
+
+        if (req.body.available == undefined){
+          req.body.available = products[0].available;
+        }
+
+        if (req.body.cost_per_unit == undefined){
+          req.body.cost_per_unit = products[0].cost_per_unit;
+        }
+
+        if (req.body.unit == undefined){
+          req.body.unit = products[0].unit;
+        }
+
+        if (req.body.mark_up_percent == undefined){
+          req.body.mark_up_percent = products[0].mark_up_percent;
+        }
+
+        if (req.body.length == undefined){
+          req.body.length = products[0].length;
+        }
+
+        if (req.body.width == undefined){
+          req.body.width = products[0].width;
+        }
+
+        if (req.body.area == undefined){
+          req.body.area = products[0].area;
+        }
+
+        if (req.body.min_shipping_cost == undefined){
+          req.body.min_shipping_cost = products[0].min_shipping_cost;
+        }
+
+        if (req.body.flat_fee == undefined){
+          req.body.flat_fee = products[0].flat_fee;
+        }
+
+        if (req.body.price == undefined){
+          req.body.price = products[0].price;
+        }
+
+        if (req.body.image == undefined){
+          req.body.image = products[0].image;
+        }
+
+        products[0].update({$set: {
+            name: req.body.name,
+            distributor_email: req.body.distributor_email,
+            distributor_name: req.body.distributor_name,
+            material: req.body.material,
+            project: req.body.project,
+            available: req.body.available,
+            cost_per_unit: req.body.cost,
+            unit: req.body.unit,
+            mark_up_percent: req.body.mark_up_percent,
+            length: req.body.length,
+            width: req.body.width,
+            area: req.body.area,
+            min_shipping_cost: req.body.min_shipping_cost,
+            flat_fee: req.body.flat_fee,
+            price: req.body.price,
+            image: req.body.image
+        }}, function(err) {
+            if (err){
+                res.status(402).send(err);
+                return;
+            }
+            res.json('Success');
+        });
+    });
+}
+
 exports.deleteProduct = function(req, res) {
     Product.find({_id: req.params._id}, function(err, products) {
         if (err){
