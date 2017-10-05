@@ -16,7 +16,8 @@ exports.newClient = function(req, res) {
           phone: req.body.phone,
           client_email: req.body.client_email,
           address: req.body.address,
-          projects: req.body.projects
+          projects: req.body.projects,
+          products: req.body.products
         });
 
         checkClientDuplication(req, function(result){
@@ -49,6 +50,58 @@ exports.getClients = function(req, res) {
             resultList.push(clients[i]);
         }
         res.json(resultList);
+    });
+}
+
+exports.updateClient = function(req, res) {
+    Client.find({_id: req.params._id}, function(err, products) {
+        if (err){
+            res.status(402).send(err);
+            return;
+        }
+        if (products.length == 0){
+            res.status(404).send('Invalid id')
+            return;
+        }
+
+        if (req.body.name == undefined){
+          req.body.name = products[0].name;
+        }
+
+        if (req.body.phone == undefined){
+          req.body.phone = products[0].phone;
+        }
+
+        if (req.body.client_email == undefined){
+          req.body.client_email = products[0].client_email;
+        }
+
+        if (req.body.address == undefined){
+          req.body.address = products[0].address;
+        }
+
+        if (req.body.projects == undefined){
+          req.body.projects = products[0].projects;
+        }
+
+        if (req.body.products == undefined){
+          req.body.products = products[0].products;
+        }
+
+        products[0].update({$set: {
+              name: req.body.name,
+              phone: req.body.phone,
+              client_email: req.body.client_email,
+              address: req.body.address,
+              projects: req.body.projects,
+              products: req.body.products
+        }}, function(err) {
+            if (err){
+                res.status(402).send(err);
+                return;
+            }
+            res.json('Success');
+        });
     });
 }
 
