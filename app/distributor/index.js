@@ -35,7 +35,7 @@ function checkAuth(req, res, next) {
 router.get('/', checkAuth, controller.getDistributors);
 router.post('/', checkAuth, controller.newDistributor);
 router.delete('/:_id', checkAuth, controller.deleteDistributor);
-// router.patch('/:login', checkAuth, controller.updateAdmin);
+router.patch('/:_id', checkAuth, controller.updateDistributor);
 // router.delete('/:login', checkAuth, controller.deleteAdmin);
 // router.post('/:login/change-password', checkAuth, controller.changePassword);
 // router.post('/login', controller.login);

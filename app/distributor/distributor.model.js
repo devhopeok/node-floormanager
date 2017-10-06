@@ -6,13 +6,14 @@ var distributorSchema = new Schema({
   name: String,
   phone: String,
   distributor_email: String,
-  password: String,
+  fax: String,
   address: String,
   city: String,
   state: String,
   zip: String,
-  managed_by_store: Boolean,
-  managed_by_manufacturer: Boolean
+  sales_name: String,
+  sales_phone: String,
+  sales_email: String
 });
 
 module.exports = mongoose.model('Distributor', distributorSchema);

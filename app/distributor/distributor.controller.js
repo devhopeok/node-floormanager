@@ -15,13 +15,14 @@ exports.newDistributor = function(req, res) {
           name: req.body.name,
           phone: req.body.phone,
           distributor_email: req.body.distributor_email,
-          password: req.body.password,
+          fax: req.body.fax,
           address: req.body.address,
           city: req.body.city,
           state: req.body.state,
           zip: req.body.zip,
-          managed_by_store: req.body.managed_by_store,
-          managed_by_manufacturer: req.body.managed_by_manufacturer
+          sales_name: req.body.sales_name,
+          sales_phone: req.body.sales_phone,
+          sales_email: req.body.sales_email
         });
 
         checkDistributorDuplication(req, function(result){
@@ -54,6 +55,81 @@ exports.getDistributors = function(req, res) {
             resultList.push(distributors[i]);
         }
         res.json(resultList);
+    });
+}
+
+exports.updateDistributor = function(req, res) {
+    Distributor.find({_id: req.params._id}, function(err, products) {
+        if (err){
+            res.status(402).send(err);
+            return;
+        }
+        if (products.length == 0){
+            res.status(404).send('Invalid id')
+            return;
+        }
+
+        if (req.body.name == undefined){
+          req.body.name = products[0].name;
+        }
+
+        if (req.body.phone == undefined){
+          req.body.phone = products[0].phone;
+        }
+
+        if (req.body.distributor_email == undefined){
+          req.body.distributor_email = products[0].distributor_email;
+        }
+
+        if (req.body.fax == undefined){
+          req.body.fax = products[0].fax;
+        }
+
+        if (req.body.address == undefined){
+          req.body.address = products[0].address;
+        }
+
+        if (req.body.city == undefined){
+          req.body.city = products[0].city;
+        }
+
+        if (req.body.state == undefined){
+          req.body.state = products[0].state;
+        }
+
+        if (req.body.zip == undefined){
+          req.body.zip = products[0].zip;
+        }
+
+        if (req.body.sales_name == undefined){
+          req.body.sales_name = products[0].sales_name;
+        }
+        if (req.body.sales_phone == undefined){
+          req.body.sales_phone = products[0].sales_phone;
+        }
+        if (req.body.sales_email == undefined){
+          req.body.sales_email = products[0].sales_email;
+        }
+
+        products[0].update({$set: {
+              name: req.body.name,
+              phone: req.body.phone,
+              distributor_email: req.body.distributor_email,
+              fax: req.body.fax,
+              address: req.body.address,
+              city: req.body.city,
+              state: req.body.state,
+              zip: req.body.zip,
+              sales_name: req.body.sales_name,
+              sales_phone: req.body.sales_phone,
+              sales_email: req.body.sales_email
+        }}, function(err) {
+            if (err){
+                res.status(402).send(err);
+                return;
+            }
+            res.json('Success');
+        });
     });
 }
 
