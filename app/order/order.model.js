@@ -14,6 +14,7 @@ var orderSchema = new Schema({
   total_price: String,
   step: Number,
   attach_image: String,
+  tracking_no: String,
   install_company: {
     name: String,
     tech_name: String,

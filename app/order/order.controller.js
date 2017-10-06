@@ -21,7 +21,8 @@ exports.newOrder = function(req, res) {
           message: req.body.message,
           memo: req.body.memo,
           total_price: req.body.total_price,
-          step: 0
+          step: 0, 
+          tracking_no: req.body.tracking_no
         });
 
         newOrder.save(function(err, data) {
@@ -108,10 +109,16 @@ exports.updateOrder = function(req, res) {
         if (req.body.install_company == undefined){
           req.body.install_company = orders[0].install_company;
         }
+
+        if (req.body.tracking_no == undefined){
+          req.body.tracking_no = orders[0].tracking_no;
+        }
+
         orders[0].update({$set: {
             attach_image: req.body.attach_image,
             install_company: req.body.install_company,
-            step: req.body.step
+            step: req.body.step,
+            tracking_no: req.body.tracking_no
           }}, function(err) {
             if (err){
                 res.status(402).send(err);
