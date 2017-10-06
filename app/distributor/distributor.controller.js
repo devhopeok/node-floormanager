@@ -6,7 +6,7 @@ var config = require('../../config');
 exports.newDistributor = function(req, res) {
 
   if( (req.body.name == '' || req.body.name == null) || (req.user.email == '' || req.user.email == null)
-   || (req.body.password == '' || req.body.password == null) || (req.body.distributor_email == '' || req.body.distributor_email == null) ) {
+    || (req.body.distributor_email == '' || req.body.distributor_email == null) ) {
         res.status(405).send('Missing Parameter');
     } else {
         var newDistributor = new Distributor(
