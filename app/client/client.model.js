@@ -3,10 +3,12 @@ var Schema       = mongoose.Schema;
 
 var clientSchema = new Schema({
   email: String,
-  name: String,
+  first_name: String,
+  last_name: String,
   phone: String,
   client_email: String,
   address: String,
+  zipcode: String,
   projects: Array,
   products: Array
 });

@@ -5,17 +5,19 @@ var config = require('../../config');
 
 exports.newClient = function(req, res) {
 
-    if( (req.body.name == '' || req.body.name == null) || (req.user.email == '' || req.user.email == null)
+    if( (req.user.email == '' || req.user.email == null)
       || (req.body.client_email == '' || req.body.client_email == null) ) {
         res.status(405).send('Missing Parameter');
     } else {
         var newClient = new Client(
         {
           email: req.user.email,
-          name: req.body.name,
+          first_name: req.body.first_name,
+          last_name: req.body.last_name,
           phone: req.body.phone,
           client_email: req.body.client_email,
           address: req.body.address,
+          zipcode: req.body.zipcode,
           projects: req.body.projects,
           products: req.body.products
         });
@@ -64,8 +66,12 @@ exports.updateClient = function(req, res) {
             return;
         }
 
-        if (req.body.name == undefined){
-          req.body.name = products[0].name;
+        if (req.body.first_name == undefined){
+          req.body.first_name = products[0].first_name;
+        }
+
+        if (req.body.last_name == undefined){
+          req.body.last_name = products[0].last_name;
         }
 
         if (req.body.phone == undefined){
@@ -80,6 +86,10 @@ exports.updateClient = function(req, res) {
           req.body.address = products[0].address;
         }
 
+        if (req.body.zipcode == undefined){
+          req.body.zipcode = products[0].zipcode;
+        }
+
         if (req.body.projects == undefined){
           req.body.projects = products[0].projects;
         }
@@ -89,10 +99,12 @@ exports.updateClient = function(req, res) {
         }
 
         products[0].update({$set: {
-              name: req.body.name,
+              first_name: req.body.first_name,
+              last_name: req.body.last_name,
               phone: req.body.phone,
               client_email: req.body.client_email,
               address: req.body.address,
+              zipcode: req.body.zipcode,
               projects: req.body.projects,
               products: req.body.products
         }}, function(err) {
