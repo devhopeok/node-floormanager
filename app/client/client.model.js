@@ -9,6 +9,8 @@ var clientSchema = new Schema({
   client_email: String,
   address: String,
   zipcode: String,
+  city: String,
+  state: String,
   projects: Array,
   products: Array
 });

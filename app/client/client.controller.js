@@ -19,7 +19,9 @@ exports.newClient = function(req, res) {
           address: req.body.address,
           zipcode: req.body.zipcode,
           projects: req.body.projects,
-          products: req.body.products
+          products: req.body.products,
+          city: req.body.city,
+          state: req.body.state
         });
 
         checkClientDuplication(req, function(result){
@@ -98,6 +100,14 @@ exports.updateClient = function(req, res) {
           req.body.products = products[0].products;
         }
 
+        if (req.body.city == undefined){
+          req.body.city = products[0].city;
+        }
+
+        if (req.body.state == undefined){
+          req.body.state = products[0].state;
+        }
+
         products[0].update({$set: {
               first_name: req.body.first_name,
               last_name: req.body.last_name,
@@ -106,7 +116,9 @@ exports.updateClient = function(req, res) {
               address: req.body.address,
               zipcode: req.body.zipcode,
               projects: req.body.projects,
-              products: req.body.products
+              products: req.body.products,
+              city: req.body.city,
+              state: req.body.state
         }}, function(err) {
             if (err){
                 res.status(402).send(err);
