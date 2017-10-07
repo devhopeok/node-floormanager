@@ -13,7 +13,8 @@ var distributorSchema = new Schema({
   zip: String,
   sales_name: String,
   sales_phone: String,
-  sales_email: String
+  sales_email: String,
+  image: String
 });
 
 module.exports = mongoose.model('Distributor', distributorSchema);

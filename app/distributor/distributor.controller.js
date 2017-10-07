@@ -22,7 +22,8 @@ exports.newDistributor = function(req, res) {
           zip: req.body.zip,
           sales_name: req.body.sales_name,
           sales_phone: req.body.sales_phone,
-          sales_email: req.body.sales_email
+          sales_email: req.body.sales_email,
+          image: req.body.image
         });
 
         checkDistributorDuplication(req, function(result){
@@ -111,6 +112,10 @@ exports.updateDistributor = function(req, res) {
           req.body.sales_email = products[0].sales_email;
         }
 
+        if (req.body.image == undefined){
+          req.body.image = products[0].image;
+        }        
+
         products[0].update({$set: {
               name: req.body.name,
               phone: req.body.phone,
@@ -122,7 +127,8 @@ exports.updateDistributor = function(req, res) {
               zip: req.body.zip,
               sales_name: req.body.sales_name,
               sales_phone: req.body.sales_phone,
-              sales_email: req.body.sales_email
+              sales_email: req.body.sales_email,
+              image: req.body.image
         }}, function(err) {
             if (err){
                 res.status(402).send(err);
