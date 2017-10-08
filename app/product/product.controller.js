@@ -26,7 +26,9 @@ exports.newProduct = function(req, res) {
           min_shipping_cost: req.body.min_shipping_cost,
           flat_fee: req.body.flat_fee,
           price: req.body.price,
-          image: req.body.image
+          image: req.body.image,
+          sku_num: req.body.sku_num,
+          client_ids: req.body.client_ids
         });
 
         checkProductDuplication(req, function(result){
@@ -144,6 +146,14 @@ exports.updateProduct = function(req, res) {
           req.body.image = products[0].image;
         }
 
+        if (req.body.sku_num == undefined){
+          req.body.sku_num = products[0].sku_num;
+        }
+
+        if (req.body.client_ids == undefined){
+          req.body.client_ids = products[0].client_ids;
+        }
+
         products[0].update({$set: {
             name: req.body.name,
             distributor_email: req.body.distributor_email,
@@ -160,7 +170,9 @@ exports.updateProduct = function(req, res) {
             min_shipping_cost: req.body.min_shipping_cost,
             flat_fee: req.body.flat_fee,
             price: req.body.price,
-            image: req.body.image
+            image: req.body.image,
+            sku_num: req.body.sku_num,
+            client_ids: req.body.client_ids
         }}, function(err) {
             if (err){
                 res.status(402).send(err);
