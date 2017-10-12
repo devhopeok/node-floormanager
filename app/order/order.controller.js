@@ -62,7 +62,7 @@ exports.newOrder = function(req, res) {
 }
 
 exports.getOrders = function(req, res) {
-    Order.find({email: req.user.email}, function(err, orders) {
+    Order.find({}, function(err, orders) {
         if (err) return;
         var resultList = [];
         for(var i = 0; i < orders.length; i++) {
