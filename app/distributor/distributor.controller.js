@@ -49,7 +49,7 @@ exports.newDistributor = function(req, res) {
 }
 
 exports.getDistributors = function(req, res) {
-    Distributor.find({email: req.user.email}, function(err, distributors) {
+    Distributor.find({}, function(err, distributors) {
         if (err) return;
         var resultList = [];
         for(var i = 0; i < distributors.length; i++) {

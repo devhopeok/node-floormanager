@@ -47,7 +47,7 @@ exports.newClient = function(req, res) {
 }
 
 exports.getClients = function(req, res) {
-    Client.find({email: req.user.email}, function(err, clients) {
+    Client.find({}, function(err, clients) {
         if (err) return;
         var resultList = [];
         for(var i = 0; i < clients.length; i++) {
