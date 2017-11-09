@@ -20,7 +20,11 @@ var productSchema = new Schema({
   price: String,
   image: String,
   sku_num: String,
-  client_ids: Array
+  client_ids: Array,
+  color: String,
+  protection: String,
+  fiber: String,
+  pattern: String
 });
 
 module.exports = mongoose.model('Product', productSchema);

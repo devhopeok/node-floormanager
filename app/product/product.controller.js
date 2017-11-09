@@ -28,7 +28,11 @@ exports.newProduct = function(req, res) {
           price: req.body.price,
           image: req.body.image,
           sku_num: req.body.sku_num,
-          client_ids: req.body.client_ids
+          client_ids: req.body.client_ids,
+          color: req.body.color,
+          protection: req.body.protection,
+          fiber: req.body.fiber,
+          pattern: req.body.pattern
         });
 
         checkProductDuplication(req, function(result){
@@ -154,6 +158,22 @@ exports.updateProduct = function(req, res) {
           req.body.client_ids = products[0].client_ids;
         }
 
+        if (req.body.color == undefined){
+          req.body.color = products[0].color;
+        }
+
+        if (req.body.pattern == undefined){
+          req.body.pattern = products[0].pattern;
+        }
+
+        if (req.body.fiber == undefined){
+          req.body.fiber = products[0].fiber;
+        }
+
+        if (req.body.protection == undefined){
+          req.body.protection = products[0].protection;
+        }
+
         products[0].update({$set: {
             name: req.body.name,
             distributor_email: req.body.distributor_email,
@@ -172,7 +192,11 @@ exports.updateProduct = function(req, res) {
             price: req.body.price,
             image: req.body.image,
             sku_num: req.body.sku_num,
-            client_ids: req.body.client_ids
+            client_ids: req.body.client_ids,
+            color: req.body.color,
+            protection: req.body.protection,
+            fiber: req.body.fiber,
+            pattern: req.body.pattern
         }}, function(err) {
             if (err){
                 res.status(402).send(err);
