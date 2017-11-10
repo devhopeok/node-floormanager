@@ -23,8 +23,8 @@ var productSchema = new Schema({
   client_ids: Array,
   color: String,
   protection: String,
-  fiber: String,
-  pattern: String
+  fiber: Boolean,
+  pattern: Boolean
 });
 
 module.exports = mongoose.model('Product', productSchema);
