@@ -23,8 +23,9 @@ var productSchema = new Schema({
   client_ids: Array,
   color: String,
   protection: String,
-  fiber: Boolean,
-  pattern: Boolean
+  material_fiber: String,
+  pattern: Boolean,
+  warr_info: String
 });
 
 module.exports = mongoose.model('Product', productSchema);

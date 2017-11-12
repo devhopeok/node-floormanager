@@ -32,7 +32,8 @@ exports.newProduct = function(req, res) {
           color: req.body.color,
           protection: req.body.protection,
           fiber: req.body.fiber,
-          pattern: req.body.pattern
+          pattern: req.body.pattern,
+          warr_info: req.body.warr_info
         });
 
         checkProductDuplication(req, function(result){
@@ -174,6 +175,10 @@ exports.updateProduct = function(req, res) {
           req.body.protection = products[0].protection;
         }
 
+        if (req.body.warr_info == undefined){
+          req.body.warr_info = products[0].warr_info;
+        }
+
         products[0].update({$set: {
             name: req.body.name,
             distributor_email: req.body.distributor_email,
@@ -196,7 +201,8 @@ exports.updateProduct = function(req, res) {
             color: req.body.color,
             protection: req.body.protection,
             fiber: req.body.fiber,
-            pattern: req.body.pattern
+            pattern: req.body.pattern,
+            warr_info: req.body.warr_info
         }}, function(err) {
             if (err){
                 res.status(402).send(err);
