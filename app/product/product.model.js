@@ -24,7 +24,7 @@ var productSchema = new Schema({
   color: String,
   protection: String,
   material_fiber: String,
-  pattern: Boolean,
+  pattern: String,
   warr_info: String
 });
 
