@@ -6,12 +6,12 @@ var productSchema = new Schema({
   name: String,
   distributor_email: String,
   distributor_name: String,
-  material: Number,
-  project: Number,
+  material: String,
+  project: String,
   available: Boolean,
   cost: String,
-  unit: Number,
-  mark_up_percent: Number,
+  unit: String,
+  mark_up_percent: String,
   length: String,
   width: String,
   area: String,
@@ -25,7 +25,8 @@ var productSchema = new Schema({
   protection: String,
   material_fiber: String,
   pattern: String,
-  warr_info: String
+  warr_info: String,
+  min_order_size: String
 });
 
 module.exports = mongoose.model('Product', productSchema);
