@@ -21,7 +21,12 @@ var orderSchema = new Schema({
     tech_phone: String,
     date: String,
     time: String
-  }
+  },
+  padding: String,
+  track_script: String,
+  glue: String,
+  labor: String,
+  trans_script: String
 });
 
 module.exports = mongoose.model('Order', orderSchema);

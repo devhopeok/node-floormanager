@@ -31,7 +31,7 @@ function checkAuth(req, res, next) {
 	}
 }
 
-router.get('/', checkAuth, controller.getStores);
+router.get('/', controller.getStores);
 router.post('/', checkAuth, controller.newStore);
 router.delete('/:_id', checkAuth, controller.deleteStore);
 // router.patch('/:login', checkAuth, controller.updateAdmin);

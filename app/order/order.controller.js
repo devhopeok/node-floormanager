@@ -22,7 +22,12 @@ exports.newOrder = function(req, res) {
           memo: req.body.memo,
           total_price: req.body.total_price,
           step: 0, 
-          tracking_no: req.body.tracking_no
+          tracking_no: req.body.tracking_no,
+          padding: req.body.padding,
+          track_script: req.body.track_script,
+          glue: req.body.glue,
+          labor: req.body.labor,
+          trans_script: req.body.trans_script
         });
 
         newOrder.save(function(err, data) {
@@ -114,11 +119,36 @@ exports.updateOrder = function(req, res) {
           req.body.tracking_no = orders[0].tracking_no;
         }
 
+        if (req.body.padding == undefined){
+          req.body.padding = orders[0].padding;
+        }
+
+        if (req.body.track_script == undefined){
+          req.body.track_script = orders[0].track_script;
+        }
+
+        if (req.body.glue == undefined){
+          req.body.glue = orders[0].glue;
+        }
+
+        if (req.body.labor == undefined){
+          req.body.labor = orders[0].labor;
+        }
+
+        if (req.body.trans_script == undefined){
+          req.body.trans_script = orders[0].trans_script;
+        }
+
         orders[0].update({$set: {
             attach_image: req.body.attach_image,
             install_company: req.body.install_company,
             step: req.body.step,
-            tracking_no: req.body.tracking_no
+            tracking_no: req.body.tracking_no,
+            padding: req.body.padding,
+            track_script: req.body.track_script,
+            glue: req.body.glue,
+            labor: req.body.labor,
+            trans_script: req.body.trans_script
           }}, function(err) {
             if (err){
                 res.status(402).send(err);
