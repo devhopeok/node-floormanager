@@ -27,7 +27,8 @@ exports.newOrder = function(req, res) {
           track_script: req.body.track_script,
           glue: req.body.glue,
           labor: req.body.labor,
-          trans_script: req.body.trans_script
+          trans_script: req.body.trans_script,
+          ship_info: req.body.ship_info
         });
 
         newOrder.save(function(err, data) {
@@ -139,6 +140,10 @@ exports.updateOrder = function(req, res) {
           req.body.trans_script = orders[0].trans_script;
         }
 
+        if (req.body.ship_info == undefined){
+          req.body.ship_info = orders[0].ship_info;
+        }
+
         orders[0].update({$set: {
             attach_image: req.body.attach_image,
             install_company: req.body.install_company,
@@ -148,7 +153,8 @@ exports.updateOrder = function(req, res) {
             track_script: req.body.track_script,
             glue: req.body.glue,
             labor: req.body.labor,
-            trans_script: req.body.trans_script
+            trans_script: req.body.trans_script,
+            ship_info: req.body.ship_info
           }}, function(err) {
             if (err){
                 res.status(402).send(err);

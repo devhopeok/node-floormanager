@@ -26,7 +26,14 @@ var orderSchema = new Schema({
   track_script: String,
   glue: String,
   labor: String,
-  trans_script: String
+  trans_script: String,
+  ship_info: {
+    name: String,
+    company: String,
+    city: String,
+    zipcode: String,
+    address: String
+  }
 });
 
 module.exports = mongoose.model('Order', orderSchema);
