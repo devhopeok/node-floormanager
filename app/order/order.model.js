@@ -32,7 +32,8 @@ var orderSchema = new Schema({
     company: String,
     city: String,
     zipcode: String,
-    address: String
+    address: String,
+    phone: String
   }
 });
 
