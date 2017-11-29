@@ -4,8 +4,6 @@ var Schema       = mongoose.Schema;
 var productSchema = new Schema({
   creator_email: String, // Creator email of product
   name: String,
-  distributor_email: String,
-  distributor_name: String,
   material: String,
   project: String,
   available: Boolean,
@@ -27,10 +25,7 @@ var productSchema = new Schema({
   pattern: String,
   warr_info: String,
   min_order_size: String,
-  distributor_id: String,
-  distributor_name: String,
-  distributor_phone: String,
-  distributor_image: String
+  distributor_id: String
 });
 
 module.exports = mongoose.model('Product', productSchema);

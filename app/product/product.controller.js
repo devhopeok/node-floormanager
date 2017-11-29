@@ -1,5 +1,6 @@
 
 var Product = require('./product.model.js');
+var Distributor = require('../distributor/distributor.model.js');
 var jwt    = require('jsonwebtoken');
 var config = require('../../config');
 
@@ -12,8 +13,6 @@ exports.newProduct = function(req, res) {
         {
           creator_email: req.user.email, // Creator email of product
           name: req.body.name,
-          distributor_email: req.body.distributor_email,
-          distributor_name: req.body.distributor_name,
           material: req.body.material,
           project: req.body.project,
           available: req.body.available,
@@ -35,10 +34,7 @@ exports.newProduct = function(req, res) {
           pattern: req.body.pattern,
           warr_info: req.body.warr_info,
           min_order_size: req.body.min_order_size,
-          distributor_id: req.body.distributor_id,
-          distributor_name: req.body.distributor_name,
-          distributor_phone: req.body.distributor_phone,
-          distributor_image: req.body.distributor_image
+          distributor_id: req.body.distributor_id
         });
 
         checkProductDuplication(req, function(result){
@@ -77,7 +73,11 @@ exports.getProducts = function(req, res) {
 exports.getProductById = function(req, res) {
     Product.findOne({_id: req.params._id}, function(err, product) {
         if (err) return;
-        res.json(product);
+        Distributor.findOne({_id: product.distributor_id}, function(err1, distributor){
+          if (err1) return;
+          res.json({product: product, distributor: distributor});
+        });
+        // res.json(product);
     });
 }
 
