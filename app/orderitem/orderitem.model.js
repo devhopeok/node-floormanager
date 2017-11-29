@@ -8,7 +8,10 @@ var orderitemSchema = new Schema({
   product_image: String,
   count: Number,
   cost: String,
-  total: String
+  total: String,
+  dis_id: String,
+  dis_phone: String,
+  dis_image: String
 });
 
 module.exports = mongoose.model('Orderitem', orderitemSchema);

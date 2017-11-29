@@ -26,7 +26,11 @@ var productSchema = new Schema({
   material_fiber: String,
   pattern: String,
   warr_info: String,
-  min_order_size: String
+  min_order_size: String,
+  distributor_id: String,
+  distributor_name: String,
+  distributor_phone: String,
+  distributor_image: String
 });
 
 module.exports = mongoose.model('Product', productSchema);

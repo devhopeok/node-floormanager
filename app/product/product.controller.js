@@ -34,7 +34,11 @@ exports.newProduct = function(req, res) {
           fiber: req.body.fiber,
           pattern: req.body.pattern,
           warr_info: req.body.warr_info,
-          min_order_size: req.body.min_order_size
+          min_order_size: req.body.min_order_size,
+          distributor_id: req.body.distributor_id,
+          distributor_name: req.body.distributor_name,
+          distributor_phone: req.body.distributor_phone,
+          distributor_image: req.body.distributor_image
         });
 
         checkProductDuplication(req, function(result){
@@ -184,6 +188,22 @@ exports.updateProduct = function(req, res) {
           req.body.min_order_size = products[0].min_order_size;
         }
 
+        if (req.body.distributor_id == undefined){
+          req.body.distributor_id = products[0].distributor_id;
+        }
+
+        if (req.body.distributor_name == undefined){
+          req.body.distributor_name = products[0].distributor_name;
+        }
+
+        if (req.body.distributor_phone == undefined){
+          req.body.distributor_phone = products[0].distributor_phone;
+        }
+
+        if (req.body.distributor_image == undefined){
+          req.body.distributor_image = products[0].distributor_image;
+        }
+
         products[0].update({$set: {
             name: req.body.name,
             distributor_email: req.body.distributor_email,
@@ -208,7 +228,11 @@ exports.updateProduct = function(req, res) {
             fiber: req.body.fiber,
             pattern: req.body.pattern,
             warr_info: req.body.warr_info,
-            min_order_size: req.body.min_order_size
+            min_order_size: req.body.min_order_size,
+            distributor_id: req.body.distributor_id,
+            distributor_name: req.body.distributor_name,
+            distributor_phone: req.body.distributor_phone,
+            distributor_image: req.body.distributor_image
         }}, function(err) {
             if (err){
                 res.status(402).send(err);

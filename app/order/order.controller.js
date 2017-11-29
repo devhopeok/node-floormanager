@@ -50,7 +50,10 @@ exports.newOrder = function(req, res) {
                         product_image: orderItem.product_image,
                         count: orderItem.count,
                         cost: orderItem.cost,
-                        total: orderItem.total
+                        total: orderItem.total,
+                        dis_id: orderItem.dis_id,
+                        dis_phone: orderItem.dis_phone,
+                        dis_image: orderItem.dis_image
                       });
                       newOrderitem.save(function(err1, data1) {
                           if (err1) {
