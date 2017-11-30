@@ -73,11 +73,7 @@ exports.getProducts = function(req, res) {
 exports.getProductById = function(req, res) {
     Product.findOne({_id: req.params._id}, function(err, product) {
         if (err) return;
-        Distributor.findOne({_id: product.distributor_id}, function(err1, distributor){
-          if (err1) return;
-          res.json({product: product, distributor: distributor});
-        });
-        // res.json(product);
+        res.json(product);
     });
 }
 

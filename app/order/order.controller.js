@@ -46,14 +46,8 @@ exports.newOrder = function(req, res) {
                       {
                         order_id: data._id,
                         product_id: orderItem.product_id,
-                        product_name: orderItem.product_name,
-                        product_image: orderItem.product_image,
                         count: orderItem.count,
-                        cost: orderItem.cost,
-                        total: orderItem.total,
-                        dis_id: orderItem.dis_id,
-                        dis_phone: orderItem.dis_phone,
-                        dis_image: orderItem.dis_image
+                        distributor_id: orderItem.distributor_id
                       });
                       newOrderitem.save(function(err1, data1) {
                           if (err1) {
